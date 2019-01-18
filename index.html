@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Gestion des étudiants</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/promotion.js" defer></script>
+    </head>
+    <body>
+        <h1>Promotions de PopSchool</h1>     
+        <div id="promo">
+
+        </div>
+        <div id="create" class="card text-white bg-dark mb-3">
+            <div class="card-header"><h5 class="card-title">Créer une nouvelle promotion:</h5></div>
+            <form class="card-create">
+                <div class="form-group">
+                <label for="promo_name">Nom de la promotion:</label>
+                <input type="text" class="form-control" id="promo_name" placeholder="Nom promotion">
+                </div>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <label for="exampleInputEmail1">Date de création:</label>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="oi oi-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <button id="create_promo" class="btn btn-dark">Créer une nouvelle promotion</button>
+            </form>
+        </div>
+    </body>
+</html>

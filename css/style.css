@@ -1,0 +1,19 @@
+#promo{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2em;
+    justify-content: space-around;
+}
+
+#create{
+    width: 23rem;
+    margin: 2em;
+}
+
+.title{
+    font: bold;
+}
+
+.card-create{
+
+}
