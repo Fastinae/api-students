@@ -1,6 +1,20 @@
 var divPromo = document.querySelector("#promo");
 
+var btnPromoCreate = document.querySelector("#create_promo");
+
+var inputPromoName = document.querySelector("#promo_name");
+var inputPromoDateStart = document.querySelector("#promo_datestart");
+var inputPromoDateEnd = document.querySelector("#promo_dateend");
+
 var promotions = [];
+
+//btnPromoCreate.addEventListener("click", createPromotion);
+
+btnPromoCreate.addEventListener('click',function(e){           // au submit dans la balise form
+    e.preventDefault();                                            // empeche le rechargement de la page
+    createPromotion();                                            // Appelle la function createPromotion 
+})
+
 
 // On loading page
 
@@ -47,7 +61,7 @@ function printPromotion() {
         cardText.innerHTML = `Nombre d'étudiants: ${promotions[i].students.length} <br>`;
         cardBody.appendChild(cardText);
         var cardButton = document.createElement("button");
-        cardButton.className = `see${promotions[i].id} btn btn-success`;
+        cardButton.className = `see${promotions[i].id} btn btn-info`;
         cardButton.innerHTML = "Voir les étudiants";
         cardBody.appendChild(cardButton);
     }
@@ -56,5 +70,20 @@ function printPromotion() {
 
 // Create new promotions
 function createPromotion(){
-
+    fetch("http://api-students.popschool-lens.fr/api/promotions", {                                                
+        method: 'POST',
+        headers: new Headers({'content-type': 'application/json'}),
+        body: JSON.stringify({
+            name: inputPromoName.value,
+            startDate: "2019-01-21T11:09:41.067Z",
+            endDate: "2019-01-21T11:09:41.067Z",
+            students: []
+        })
+    })
+    .then(function(response){        
+        fetchPromotion();
+    })
+    .catch(function(error){             
+        console.log(error);
+    })
 }

@@ -5,6 +5,11 @@
     justify-content: space-around;
 }
 
+.contener{
+    display: flex;
+    justify-content: center;
+}
+
 #create{
     width: 23rem;
     margin: 2em;
@@ -16,4 +21,12 @@
 
 .card-create{
 
+}
+
+.margin-card{
+    margin: 1em 2em;
+}
+
+.margin-btn{
+    margin-bottom: 1em;
 }
