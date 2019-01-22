@@ -161,3 +161,71 @@ function createPromotion(){
     })
 }
 
+// Fetch students
+function getStudent(id){
+    fetch("http://api-students.popschool-lens.fr/api/students")
+        .then(response => response.json())
+        .then(studentData => {
+            console.log(studentData);
+            students = studentData["hydra:member"];
+            console.log(students);
+        }
+        )
+        .then(students => printStudent(id))
+        .catch(error => console.log(error))
+}
+
+// Print students
+function printStudent(id){
+    var promo = "/api/promotions/" + id;
+    divPromo.innerHTML = "";
+    students.forEach(function(student){
+        if(promo == student.promotion){       
+            console.log(student.id);
+            var cardDiv = document.createElement("div");
+            cardDiv.className = "card text-white bg-dark mb-3";
+            cardDiv.style = "width: 18rem";
+            divStudent.appendChild(cardDiv);
+            var cardHead = document.createElement("div");
+            cardHead.className = "card-header";
+            cardHead.innerHTML = `Etudiant ${student.id}`;
+            cardDiv.appendChild(cardHead);
+            var cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+            cardDiv.appendChild(cardBody);
+            var cardTitle = document.createElement("h5");
+            cardTitle.className = "card-text";
+            cardTitle.innerHTML = `${student.firstname} ${student.lastname}`;
+            cardBody.appendChild(cardTitle);
+            var cardText = document.createElement("p");
+            cardText.className = "card-text";
+            cardText.innerHTML = `Sexe: ${student.sex} <br>`;
+            cardBody.appendChild(cardText);
+
+            // Print update button
+            var btnMod = document.createElement("button");
+            btnMod.id = "update_promo";
+            btnMod.type= "submit";
+            btnMod.value= `${student.id}`;
+            btnMod.className = `btn btn-warning`;
+            btnMod.innerHTML = "Modifier";
+            cardText.appendChild(btnMod);
+            btnMod.addEventListener('click',function(e){                                          
+                UpdateStudent(e.target.value);                                           
+            })
+            
+
+            // Print delete button
+            var btnSup = document.createElement("button");
+            btnSup.id = "delete_promo";
+            btnSup.className = `btn btn-danger`;
+            btnSup.type= "submit";
+            btnSup.value= `${student.id}`;
+            btnSup.innerHTML = "Supprimer";
+            cardText.appendChild(btnSup);
+            btnSup.addEventListener('click',function(e){                                          
+                deleteStudent(e.target.value);                                           
+            })
+            }
+    })
+}

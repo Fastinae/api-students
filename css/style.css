@@ -5,6 +5,13 @@
     justify-content: space-around;
 }
 
+#student{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2em;
+    justify-content: space-around;
+}
+
 .contener{
     display: flex;
     justify-content: center;
