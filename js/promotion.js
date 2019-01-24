@@ -1,5 +1,6 @@
 var divPromo = document.querySelector("#promo");
 var divStudent = document.querySelector("#student");
+var divUpdate = document.querySelector("#update");
 
 var btnPromoCreate = document.querySelector("#create_promo");
 
@@ -90,7 +91,7 @@ function printPromotion() {
         btnMod.innerHTML = "Modifier";
         cardText.appendChild(btnMod);
         btnMod.addEventListener('click',function(e){                                          
-            UpdatePromotion(e.target.value);                                           
+            updatePrintPromotion(e.target.value);                                           
         })
         
 
@@ -110,22 +111,56 @@ function printPromotion() {
 
 
 // Update promotion
-function updatePromotion(id){
+function updatePrintPromotion(id){
     var cardDiv = document.createElement("div");
         cardDiv.className = "card text-white bg-dark mb-3";
         cardDiv.style = "width: 18rem";
         divPromo.appendChild(cardDiv);
         var cardHead = document.createElement("div");
         cardHead.className = "card-header";
-        cardHead.innerHTML = `Promotion ${promotions[i].id}`;
+        cardHead.innerHTML = `Modification promotion ${id}`;
         cardDiv.appendChild(cardHead);
         var cardBody = document.createElement("div");
         cardBody.className = "card-body";
         cardDiv.appendChild(cardBody);
         var cardText = document.createElement("p");
         cardText.className = "card-text";
-        cardText.innerHTML = `Nombre d'étudiants: ${promotions[i].students.length} <br>`;
+        cardText.innerHTML = `Nom: <br>`;
         cardBody.appendChild(cardText);
+        var inputNom = document.createElement("input");
+        inputNom.className = "card-text";
+        inputNom.id = "update_promo_name";
+        inputNom.type = "text";
+        cardBody.appendChild(inputNom);
+        var btnVal = document.createElement("button");
+        btnVal.type= "submit";
+        btnVal.value= `${id}`;
+        btnVal.className = `btn btn-warning`;
+        btnVal.innerHTML = "Valider modification";
+        cardBody.appendChild(btnVal);
+        var inputUpdatePromoName = document.querySelector("#update_promo_name");
+        btnVal.addEventListener('click',function(e){ 
+            console.log(e.target.value);                                         
+            fetch("http://api-students.popschool-lens.fr/api/promotions/" + e.target.value,{                                                             
+                method: 'PUT',
+                headers: new Headers({'content-type': 'application/json'}),
+                body: JSON.stringify({
+                    name: inputUpdatePromoName.value,
+                })
+            })
+            .then(function(response){        
+                fetchPromotion();
+                divUpdate.innerHTML = "";   
+
+            })
+            .catch(function(error){             
+                console.log(error);
+            })                                          
+        })
+}
+
+function updatePromotion(id){
+
 }
 
 // Delete Promotion
@@ -178,7 +213,7 @@ function getStudent(id){
 // Print students
 function printStudent(id){
     var promo = "/api/promotions/" + id;
-    divPromo.innerHTML = "";
+    divStudent.innerHTML = "";
     students.forEach(function(student){
         if(promo == student.promotion){       
             console.log(student.id);
